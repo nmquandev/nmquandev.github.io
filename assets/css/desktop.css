@@ -1,0 +1,202 @@
+/* Desktop layout: wallpaper, menu bar, desktop icons, windows and dock */
+/* Wallpaper: own gradient plus generated contour lines */
+.desktop { position: fixed; inset: 0; background: var(--wall); }
+.desktop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--topo);
+  background-size: 1400px 900px;
+  background-position: 70% 30%;
+  pointer-events: none;
+}
+
+/* Menu bar */
+.menubar {
+  position: fixed;
+  z-index: 9000;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 10px;
+  background: var(--bar);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  color: var(--ink);
+  font-size: 13px;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.menubar button { height: 22px; padding: 0 9px; border: 0; border-radius: 5px; background: none; cursor: default; }
+.menubar button:hover { background: rgba(127, 140, 160, .22); }
+.menubar .mark {
+  display: grid; place-items: center;
+  width: 18px; height: 18px; padding: 0;
+  border-radius: 5px;
+  background: var(--ink);
+  color: var(--win);
+  font-weight: 700; font-size: 11px;
+}
+.menubar .name { font-weight: 700; }
+.menubar .spacer { flex: 1; }
+.menubar .clock { padding: 0 6px; font-variant-numeric: tabular-nums; white-space: nowrap; cursor: default; }
+.menubar svg { display: block; width: 15px; height: 15px; }
+/* Language switch: both options visible, the active one raised */
+.menubar .langbtn {
+  display: inline-flex;
+  gap: 2px;
+  height: 22px;
+  padding: 2px;
+  border-radius: 6px;
+  background: rgba(127, 140, 160, .2);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.menubar .langbtn:hover { background: rgba(127, 140, 160, .3); }
+.langbtn .opt { padding: 0 6px; border-radius: 4px; line-height: 18px; color: var(--muted); }
+html[lang="en"] .langbtn [data-lang="en"],
+html[lang="vi"] .langbtn [data-lang="vi"] { background: var(--win); color: var(--ink); box-shadow: 0 1px 2px rgba(14, 26, 50, .2); }
+.lock[aria-pressed="true"] { color: var(--after); }
+/* Layout switch: desktop or simple, same look as the language switch */
+.menubar .viewsw { display: inline-flex; gap: 2px; height: 22px; padding: 2px; border-radius: 6px; background: rgba(127, 140, 160, .2); }
+.menubar .viewsw button { display: grid; place-items: center; width: 26px; height: 18px; padding: 0; border-radius: 4px; color: var(--muted); }
+.menubar .viewsw button:hover { background: rgba(127, 140, 160, .25); color: var(--ink); }
+.menubar .viewsw button[aria-pressed="true"] { background: var(--win); color: var(--ink); box-shadow: 0 1px 2px rgba(14, 26, 50, .2); }
+.menubar .viewsw svg { width: 14px; height: 14px; }
+
+/* Desktop icons */
+.icons { position: absolute; top: 44px; right: 18px; display: grid; gap: 14px; justify-items: center; }
+.icon {
+  display: grid; justify-items: center; gap: 4px;
+  width: 88px; padding: 6px 4px;
+  border: 0; border-radius: 6px;
+  background: none;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .55);
+  font-size: 12px; line-height: 1.25;
+  cursor: default;
+}
+:root[data-theme="light"] .icon { color: var(--ink); text-shadow: 0 1px 1px rgba(255, 255, 255, .6); }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .icon { color: var(--ink); text-shadow: 0 1px 1px rgba(255, 255, 255, .6); } }
+.icon:hover { background: rgba(127, 140, 160, .22); }
+.icon svg { width: 52px; height: 60px; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .25)); }
+
+/* Windows */
+.window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100dvh - 36px);
+  border-radius: 11px;
+  background: var(--win);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.window[hidden] { display: none; }
+/* Resize handles on every edge and corner */
+.rz { position: absolute; z-index: 3; touch-action: none; }
+.rz-n, .rz-s { left: 10px; right: 10px; height: 7px; cursor: ns-resize; }
+.rz-e, .rz-w { top: 10px; bottom: 10px; width: 7px; cursor: ew-resize; }
+.rz-n { top: 0; } .rz-s { bottom: 0; } .rz-e { right: 0; } .rz-w { left: 0; }
+.rz-ne, .rz-nw, .rz-se, .rz-sw { width: 14px; height: 14px; }
+.rz-ne { top: 0; right: 0; cursor: nesw-resize; }
+.rz-sw { bottom: 0; left: 0; cursor: nesw-resize; }
+.rz-nw { top: 0; left: 0; cursor: nwse-resize; }
+.rz-se { bottom: 0; right: 0; cursor: nwse-resize; }
+.window.max .rz { display: none; }
+.window.resizing, .window.resizing * { user-select: none; }
+.window.opening { animation: open .18s ease-out; }
+@keyframes open { from { opacity: 0; transform: scale(.97); } }
+.window.max {
+  left: 0 !important; top: 28px !important;
+  width: 100vw !important; height: calc(100dvh - 28px - 76px) !important;
+  max-height: none; border-radius: 0;
+}
+.titlebar {
+  flex: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 12px;
+  background: var(--win-bar);
+  border-bottom: 1px solid var(--line);
+  touch-action: none;
+  user-select: none;
+}
+.titlebar h2 { position: absolute; left: 0; right: 0; margin: 0; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); pointer-events: none; }
+.window:not(.active) .titlebar h2 { color: var(--muted); }
+.lights { position: relative; z-index: 1; display: flex; gap: 8px; }
+.lights button { display: grid; place-items: center; width: 12px; height: 12px; padding: 0; border: 0; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .2); color: rgba(60, 20, 10, .7); }
+.lights svg { width: 12px; height: 12px; opacity: 0; }
+.lights:hover svg { opacity: 1; }
+.lights .min { color: rgba(90, 60, 0, .75); }
+.lights .zoom { color: rgba(0, 70, 10, .75); }
+.lights .close { --c: #ff5f57; }
+.lights .min { --c: #febc2e; }
+.lights .zoom { --c: #28c840; }
+.window:not(.active) .lights button { --c: #c3c8d1; }
+:root[data-theme="dark"] .window:not(.active) .lights button { --c: #4a5368; }
+.window:not(.active) .lights:hover .close { --c: #ff5f57; }
+.window:not(.active) .lights:hover .min { --c: #febc2e; }
+.window:not(.active) .lights:hover .zoom { --c: #28c840; }
+.body:focus { outline: none; }
+.body { flex: 1; overflow: auto; }
+
+/* Dock */
+.dock {
+  position: fixed;
+  z-index: 8000;
+  left: 50%; bottom: 8px;
+  transform: translateX(-50%);
+  display: flex; align-items: flex-end; gap: 6px;
+  padding: 6px 8px;
+  border-radius: 18px;
+  background: var(--dock);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .18), 0 10px 30px rgba(0, 0, 0, .25);
+  max-width: calc(100vw - 16px);
+}
+.dock .sep { align-self: stretch; width: 1px; margin: 4px 3px; background: rgba(127, 140, 160, .45); }
+.dock a, .dock button { position: relative; display: block; width: 50px; height: 50px; padding: 0; border: 0; background: none; transition: transform .15s ease-out; }
+.dock a:hover, .dock button:hover { transform: translateY(-5px); }
+.dock svg, .dock img { display: block; width: 100%; height: 100%; border-radius: 12px; }
+.dock img { object-fit: cover; object-position: 50% 22%; }
+.dock [data-label]:hover::before, .dock [data-label]:focus-visible::before {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--win); color: var(--ink);
+  box-shadow: var(--shadow);
+  font-size: 12px; white-space: nowrap;
+  pointer-events: none;
+}
+.dock .on::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--ink); }
+
+/* Phones: one full-screen window at a time */
+@media (max-width: 760px) {
+  .menubar .menu, .menubar .name, .icons { display: none; }
+  html:not([data-view="simple"]) .window,
+  html:not([data-view="simple"]) .window.max {
+    left: 0 !important; top: 28px !important;
+    width: 100vw !important; height: calc(100dvh - 28px - 72px) !important;
+    max-height: none; max-width: none; min-width: 0;
+    border-radius: 0;
+  }
+  .lights .zoom { display: none; }
+  .rz { display: none; }
+  .dock { gap: 4px; padding: 5px 6px; bottom: 6px; }
+  .dock a, .dock button { width: 38px; height: 38px; }
+  .dock svg, .dock img { border-radius: 9px; }
+  .dock .sep { margin: 3px 1px; }
+}

@@ -36,9 +36,13 @@ jobs:
         run: |
           mkdir _site
           cp -R index.html assets .nojekyll _site/
-          # Cache-busting: browsers keep assets for 10 minutes, so give each build its own URLs
-          sed -i -E "s#(assets/(site\.css|site\.js|lang\.js|config\.js|favicon\.svg|apple-touch-icon\.png))\"#\1?v=${VERSION}\"#g" _site/index.html
-          grep -o 'assets/[a-z]*\.\(css\|js\)?v=[0-9.]*' _site/index.html
+          # Cache-busting: browsers keep assets for 10 minutes, so give each build its own URLs:
+          # the styles, scripts and icons in index.html, and every import between the modules in
+          # assets/js/ (all with the same ?v=, so each module still loads only once)
+          sed -i -E "s#(assets/[a-z0-9/-]+\.(css|js|svg|png))\"#\1?v=${VERSION}\"#g" _site/index.html
+          sed -i -E "s#(from '\./[a-z0-9-]+\.js)'#\1?v=${VERSION}'#g" _site/assets/js/*.js
+          grep -oE 'assets/[a-z0-9/-]+\.(css|js)\?v=[0-9.]+' _site/index.html
+          if grep -nE "from '\./[a-z0-9-]+\.js'" _site/assets/js/*.js; then echo "an import has no version"; exit 1; fi
           printf '{"version":"%s","commit":"%s","built":"%s"}\n' \
             "$VERSION" "$(git rev-parse --short HEAD)" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > _site/assets/version.json
           cat _site/assets/version.json
