@@ -23,8 +23,12 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#14213d">
-<script src="assets/lang.js"></script>
-<link rel="stylesheet" href="assets/site.css">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/desktop.css">
+<link rel="stylesheet" href="assets/css/content.css">
+<link rel="stylesheet" href="assets/css/chat.css">
+<link rel="stylesheet" href="assets/css/simple.css">
 </head>
 <body>
 
@@ -39,8 +43,10 @@
       <button data-open="skills"><span class="en">Skills</span><span class="vi">Kỹ năng</span></button>
       <button data-open="cv">CV</button>
       <button data-open="terminal">Terminal</button>
+      <a class="to-contact" href="#contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
     </span>
     <span class="spacer"></span>
+    <span class="viewsw" role="group" data-tl="aria-label:Layout|Bố cục"><button data-view-set="desktop" aria-pressed="false" data-tl="aria-label:Desktop layout|Giao diện desktop;title:Desktop layout: windows and dock|Giao diện desktop: cửa sổ và dock"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="2"/><path d="M1.5 5.5h13"/><path d="M4.5 8.5h4v3h-4z"/></svg></button><button data-view-set="simple" aria-pressed="false" data-tl="aria-label:Simple layout|Giao diện đơn giản;title:Simple layout: one page to scroll|Giao diện đơn giản: một trang để cuộn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="2"/><path d="M6 2.5v11M8.5 6h3.5M8.5 8.5h3.5M8.5 11h2"/></svg></button></span>
     <button class="langbtn" id="langBtn" data-tl="aria-label:Language: English. Switch to Vietnamese|Ngôn ngữ: Tiếng Việt. Chuyển sang tiếng Anh;title:Switch to Vietnamese|Chuyển sang tiếng Anh"><span class="opt" data-lang="en" aria-hidden="true">EN</span><span class="opt" data-lang="vi" aria-hidden="true">VI</span></button>
     <button class="lock" id="lockBtn" aria-pressed="false">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path class="shackle" d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>
@@ -67,12 +73,13 @@
   </div>
 
   <!-- About -->
-  <section class="window" id="about" aria-labelledby="about-t" data-x="0.03" data-y="60" data-w="560">
+  <section class="window" id="about" data-section aria-labelledby="about-t" data-x="0.03" data-y="60" data-w="560">
     <div class="titlebar"><div class="lights"><button class="close" tabindex="-1" data-tl="aria-label:Close|Đóng"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 4l4 4M8 4l-4 4"/></svg></button><button class="min" tabindex="-1" data-tl="aria-label:Minimize|Thu nhỏ"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.5 6h5"/></svg></button><button class="zoom" tabindex="-1" data-tl="aria-label:Zoom|Phóng to"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M6 3.5v5M3.5 6h5"/></svg></button></div><h2 id="about-t"><span class="en">About Quan</span><span class="vi">Giới thiệu</span></h2></div>
     <div class="body">
       <div class="about">
         <img src="assets/avatar.jpg" alt="Quan Minh Nguyen" width="132" height="155">
         <div>
+          <p class="hello"><span class="en">Hi, my name is</span><span class="vi">Xin chào, tôi là</span></p>
           <h1>Quan Minh Nguyen</h1>
           <p class="role"><span class="en">Principal Software Engineer at KMS Solutions, Ho Chi Minh City</span><span class="vi">Principal Software Engineer tại KMS Solutions, TP. Hồ Chí Minh</span></p>
           <p class="en">I build AI assistants and the cloud platforms they run on, and I make slow or fragile systems fast and rebuildable from code.</p>
@@ -93,7 +100,7 @@
   </section>
 
   <!-- Projects -->
-  <section class="window" id="projects" aria-labelledby="projects-t" data-x="0.42" data-y="96" data-w="720" data-h="560">
+  <section class="window" id="projects" data-section aria-labelledby="projects-t" data-x="0.42" data-y="96" data-w="720" data-h="560">
     <div class="titlebar"><div class="lights"><button class="close" tabindex="-1" data-tl="aria-label:Close|Đóng"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 4l4 4M8 4l-4 4"/></svg></button><button class="min" tabindex="-1" data-tl="aria-label:Minimize|Thu nhỏ"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.5 6h5"/></svg></button><button class="zoom" tabindex="-1" data-tl="aria-label:Zoom|Phóng to"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M6 3.5v5M3.5 6h5"/></svg></button></div><h2 id="projects-t"><span class="en">Projects</span><span class="vi">Dự án</span></h2></div>
     <div class="body">
       <div class="finder">
@@ -301,7 +308,7 @@
   </section>
 
   <!-- Experience -->
-  <section class="window" id="experience" aria-labelledby="experience-t" data-x="0.16" data-y="56" data-w="700" data-h="640" hidden>
+  <section class="window" id="experience" data-section aria-labelledby="experience-t" data-x="0.16" data-y="56" data-w="700" data-h="640" hidden>
     <div class="titlebar"><div class="lights"><button class="close" tabindex="-1" data-tl="aria-label:Close|Đóng"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 4l4 4M8 4l-4 4"/></svg></button><button class="min" tabindex="-1" data-tl="aria-label:Minimize|Thu nhỏ"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.5 6h5"/></svg></button><button class="zoom" tabindex="-1" data-tl="aria-label:Zoom|Phóng to"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M6 3.5v5M3.5 6h5"/></svg></button></div><h2 id="experience-t"><span class="en">Experience</span><span class="vi">Kinh nghiệm</span></h2></div>
     <div class="body">
       <ol class="timeline" reversed>
@@ -368,7 +375,7 @@
   </section>
 
   <!-- Skills -->
-  <section class="window" id="skills" aria-labelledby="skills-t" data-x="0.28" data-y="80" data-w="640" hidden>
+  <section class="window" id="skills" data-section aria-labelledby="skills-t" data-x="0.28" data-y="80" data-w="640" hidden>
     <div class="titlebar"><div class="lights"><button class="close" tabindex="-1" data-tl="aria-label:Close|Đóng"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 4l4 4M8 4l-4 4"/></svg></button><button class="min" tabindex="-1" data-tl="aria-label:Minimize|Thu nhỏ"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.5 6h5"/></svg></button><button class="zoom" tabindex="-1" data-tl="aria-label:Zoom|Phóng to"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M6 3.5v5M3.5 6h5"/></svg></button></div><h2 id="skills-t"><span class="en">Skills</span><span class="vi">Kỹ năng</span></h2></div>
     <div class="body">
       <div class="settings">
@@ -380,22 +387,47 @@
           <div><dt><span class="en">Frontend and mobile</span><span class="vi">Frontend và mobile</span></dt><dd class="has-chips"><ul class="chips" data-tl="aria-label:Tech stack|Công nghệ sử dụng"><li>React</li><li>React Native</li><li>Angular</li><li>Vue</li><li>Flutter</li><li>Micro frontends</li></ul></dd></div>
           <div><dt>Delivery</dt><dd class="has-chips"><ul class="chips" data-tl="aria-label:Tech stack|Công nghệ sử dụng"><li>Azure DevOps</li><li>GitLab CI</li><li>Jenkins</li><li>TeamCity</li><li>Docker</li><li>Kubernetes</li></ul></dd></div>
         </dl>
-        <h3><span class="en">Credentials</span><span class="vi">Bằng cấp và giải thưởng</span></h3>
+        <h3><span class="en">Certifications</span><span class="vi">Chứng chỉ</span></h3>
         <dl class="group">
-          <div><dt>2026</dt><dd>Claude Certified Architect, Foundations</dd></div>
-          <div><dt>2024</dt><dd>Camunda 8 Certified Professional Developer</dd></div>
+          <div><dt>Anthropic</dt><dd>Claude Certified Architect, Foundations <span class="yr">2026</span></dd></div>
+          <div><dt>Camunda</dt><dd>Camunda 8 Certified Professional Developer <span class="yr">2024</span></dd></div>
           <div><dt>AWS</dt><dd>AWS Certified Solutions Architect, Associate</dd></div>
-          <div><dt>2021</dt><dd><span class="en">Excellent Service Award, DXC Technology</span><span class="vi">Excellent Service Award, DXC Technology</span></dd></div>
-          <div><dt>2015</dt><dd><span class="en">Excellent Service Award, CSC</span><span class="vi">Excellent Service Award, CSC</span></dd></div>
-          <div><dt>2019</dt><dd><span class="en">English, TOEIC 875</span><span class="vi">Tiếng Anh, TOEIC 875</span></dd></div>
+        </dl>
+        <h3><span class="en">Awards</span><span class="vi">Giải thưởng</span></h3>
+        <dl class="group">
+          <div><dt>2021</dt><dd>Excellent Service Award, DXC Technology</dd></div>
+          <div><dt>2015</dt><dd>Excellent Service Award, CSC</dd></div>
+        </dl>
+        <h3><span class="en">Education and languages</span><span class="vi">Học vấn và ngoại ngữ</span></h3>
+        <dl class="group">
           <div><dt>2010</dt><dd><span class="en">B.Eng., Honors Program, Ho Chi Minh City University of Technology</span><span class="vi">Kỹ sư, Chương trình Kỹ sư Tài năng, Đại học Bách khoa TP. Hồ Chí Minh</span></dd></div>
+          <div><dt>2019</dt><dd><span class="en">English, TOEIC 875</span><span class="vi">Tiếng Anh, TOEIC 875</span></dd></div>
         </dl>
       </div>
     </div>
   </section>
 
+  <!-- Simple page only: how to get in touch -->
+  <section class="outro" id="contact" aria-labelledby="contact-t">
+    <p class="eyebrow"><span class="en">What's next?</span><span class="vi">Tiếp theo?</span></p>
+    <h2 id="contact-t"><span class="en">Get in touch</span><span class="vi">Liên hệ với tôi</span></h2>
+    <p class="en">Email or call me about a role, a project, or anything on this page. The assistant can answer your questions first.</p>
+    <p class="vi">Gửi email hoặc gọi cho tôi về một vị trí, một dự án hay bất cứ điều gì trên trang này. Bạn cũng có thể hỏi trợ lý AI trước.</p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:nmquan2504@gmail.com"><span class="en">Say hello</span><span class="vi">Gửi email</span></a>
+      <a class="btn" href="tel:+84907944718">0907 944 718</a>
+      <button class="btn" data-open="chat"><span class="en">Ask the assistant</span><span class="vi">Hỏi trợ lý AI</span></button>
+    </div>
+    <footer class="credit"><span class="en">Built by Quan Nguyen.</span><span class="vi">Quan Nguyen xây dựng.</span></footer>
+  </section>
+  <div class="side" data-tl="aria-label:Links|Liên kết" role="navigation">
+    <a href="https://github.com/nmquan2504" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    <a href="mailto:nmquan2504@gmail.com" aria-label="Email"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><path d="M2 4l6 4.5L14 4"/></svg></a>
+    <a href="tel:+84907944718" data-tl="aria-label:Call 0907 944 718|Gọi 0907 944 718"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.2 2.5H3.4a1 1 0 0 0-1 1.1c.5 5.3 4.7 9.5 10 10a1 1 0 0 0 1.1-1v-1.8a1 1 0 0 0-.8-1l-2-.5a1 1 0 0 0-1 .3l-.8.8a8 8 0 0 1-3.5-3.5l.8-.8a1 1 0 0 0 .3-1l-.5-2a1 1 0 0 0-1-.8z"/></svg></a>
+  </div>
+
   <!-- Terminal -->
-  <section class="window term" id="terminal" aria-labelledby="terminal-t" data-x="0.44" data-y="150" data-w="600" data-h="380" hidden>
+  <section class="window term" id="terminal" data-focus-self aria-labelledby="terminal-t" data-x="0.44" data-y="150" data-w="600" data-h="380" hidden>
     <div class="titlebar"><div class="lights"><button class="close" tabindex="-1" data-tl="aria-label:Close|Đóng"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 4l4 4M8 4l-4 4"/></svg></button><button class="min" tabindex="-1" data-tl="aria-label:Minimize|Thu nhỏ"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.5 6h5"/></svg></button><button class="zoom" tabindex="-1" data-tl="aria-label:Zoom|Phóng to"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M6 3.5v5M3.5 6h5"/></svg></button></div><h2 id="terminal-t">quan: zsh</h2></div>
     <div class="body" id="termBody">
       <pre id="termOut" aria-live="polite"></pre>
@@ -404,7 +436,7 @@
   </section>
 
   <!-- Chat assistant: answers from the public site and CV through the portfolio API -->
-  <section class="window chat" id="chat" aria-labelledby="chat-t" data-anchor="br" data-w="380" data-h="560" hidden>
+  <section class="window chat" id="chat" data-focus-self aria-labelledby="chat-t" data-anchor="br" data-w="380" data-h="560" hidden>
     <div class="titlebar"><div class="lights"><button class="close" tabindex="-1" data-tl="aria-label:Close|Đóng"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 4l4 4M8 4l-4 4"/></svg></button><button class="min" tabindex="-1" data-tl="aria-label:Minimize|Thu nhỏ"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.5 6h5"/></svg></button><button class="zoom" tabindex="-1" data-tl="aria-label:Zoom|Phóng to"><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M6 3.5v5M3.5 6h5"/></svg></button></div><h2 id="chat-t"><span class="en">Ask about Quan</span><span class="vi">Hỏi về Quan</span></h2></div>
     <div class="body chat-body">
       <div class="chat-log" id="chatLog" role="log" aria-live="polite" data-tl="aria-label:Conversation|Cuộc trò chuyện">
@@ -484,6 +516,6 @@
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="assets/config.js"></script>
-<script src="assets/site.js"></script>
+<script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
