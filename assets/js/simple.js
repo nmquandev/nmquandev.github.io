@@ -80,6 +80,9 @@ function reveal() {
 }
 
 export function initSimple() {
+  // The hero's entrance plays once when the page opens (see .intro in simple.css)
+  document.documentElement.classList.add('intro');
+  setTimeout(() => document.documentElement.classList.remove('intro'), 1200);
   experienceTabs();
   topBar();
   reveal();

@@ -99,9 +99,10 @@ function addTitlebar(w) {
   $('.zoom', w).addEventListener('click', () => w.classList.toggle('max'));
   const bar = $('.titlebar', w);
   let sx, sy, ox, oy, drag = false;
-  bar.addEventListener('dblclick', (e) => { if (!e.target.closest('button') && floating(w)) w.classList.toggle('max'); });
+  // Moving and zooming are desktop-only; on the simple page these windows stay where the page puts them
+  bar.addEventListener('dblclick', (e) => { if (!e.target.closest('button') && view() === 'desktop') w.classList.toggle('max'); });
   bar.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('button') || phone() || w.classList.contains('max') || !floating(w)) return;
+    if (e.target.closest('button') || phone() || w.classList.contains('max') || view() !== 'desktop') return;
     drag = true; sx = e.clientX; sy = e.clientY; ox = w.offsetLeft; oy = w.offsetTop;
     bar.setPointerCapture(e.pointerId);
   });
@@ -128,6 +129,14 @@ export function initWindows() {
     if (e.key !== 'Escape' || $('#unlock').open) return;
     const top = frontWin();
     if (top) { e.preventDefault(); closeWin(top, false); }
+  });
+  // Simple page: the CV and terminal sit over a dimmed page, and a click on the page closes them.
+  // Clicks in the code dialog (which the CV can open) don't count.
+  document.addEventListener('pointerdown', (e) => {
+    if (view() !== 'simple' || e.target.closest('dialog, [data-open]')) return;
+    wins.forEach((w) => {
+      if (!w.hidden && !isSection(w) && w.id !== 'chat' && !w.contains(e.target)) closeWin(w, false);
+    });
   });
   // Anything with data-open="<window id>" opens that window (menu bar, dock, buttons in the content)
   document.addEventListener('click', (e) => {
