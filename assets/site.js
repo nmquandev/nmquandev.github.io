@@ -685,7 +685,7 @@
     if (!chatWin.hidden || store.get('chatNudged', true)) return;
     store.set('chatNudged', '1', true);
     chatBtn.classList.add('nudge');
-    setTimeout(function () { chatBtn.classList.remove('nudge'); }, 5000);   // 3 rings of 1.6 s
+    setTimeout(function () { chatBtn.classList.remove('nudge'); }, 5800);   // 4 rings of 1.4 s
   }, 4000);
   chatBtn.addEventListener('click', function () { chatBtn.classList.remove('nudge'); });
 })();

@@ -586,9 +586,11 @@ dialog .row { display: flex; gap: 8px; justify-content: flex-end; }
 }
 .launcher:hover { transform: translateY(-3px); }
 /* One-time nudge: a teal ring spreads out three times, a few seconds after the page opens */
-.launcher::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #4cc9a8; opacity: 0; pointer-events: none; }
-.launcher.nudge::after { animation: nudge 1.6s ease-out 3; }
-@keyframes nudge { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
+.launcher::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 3px solid #4cc9a8; background: rgba(76, 201, 168, .35); opacity: 0; pointer-events: none; }
+.launcher.nudge::after { animation: nudge 1.4s ease-out 4; }
+.launcher.nudge svg { animation: nudge-hop 1.4s ease-in-out 4; }
+@keyframes nudge { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(2.2); } }
+@keyframes nudge-hop { 0%, 40%, 100% { transform: none; } 15% { transform: translateY(-4px) rotate(-8deg); } 28% { transform: translateY(0) rotate(6deg); } }
 .launcher svg { width: 34px; height: 34px; }
 .launcher .dot { fill: #4cc9a8; }
 
