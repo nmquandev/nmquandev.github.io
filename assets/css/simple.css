@@ -252,6 +252,7 @@
   & .case.more .demo-status { margin: 0 0 12px; }
   & .case.more .desc { color: var(--muted); font-size: 14.5px; }
   & .case.more:not(.open) .desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; }
+  & .case.more:not(.open) .desc :is(p.en ~ p.en, p.vi ~ p.vi) { display: none; }
   & .case.more:not(.open) :is(.metric, .cta) { display: none; }
   & .case.more .chips { margin-top: auto; padding-top: 16px; }
   & .more-btn {
@@ -296,17 +297,52 @@
   &.reveal :is(.window[data-section]:not(#about), .outro) { opacity: 0; transform: translateY(20px); transition: opacity .6s ease-out, transform .6s ease-out; }
   &.reveal :is(.window[data-section]:not(#about), .outro).shown { opacity: 1; transform: none; }
 
-  /* CV, terminal and chat float over the page */
-  & .window:not([data-section]) { position: fixed; }
+  /* CV, terminal and chat float over the page. They drop the desktop look (traffic lights, drag,
+     resize): a plain title on the left and a close button on the right. */
+  & .window:not([data-section]) {
+    position: fixed;
+    border-radius: 10px;
+    background: var(--card);
+    box-shadow: 0 30px 80px -20px rgba(2, 12, 27, .7), 0 0 0 1px var(--line);
+  }
+  & .window:not([data-section]) .rz { display: none; }
+  & .window:not([data-section]) .titlebar { height: 52px; padding: 0 10px 0 20px; gap: 12px; background: var(--card); border-color: var(--line); touch-action: auto; }
+  & .window:not([data-section]) .titlebar h2 { position: static; flex: 1; min-width: 0; overflow: hidden; color: var(--ink); font-family: var(--mono); font-size: 13px; font-weight: 400; text-align: left; text-overflow: ellipsis; white-space: nowrap; }
+  & .window:not([data-section]) .lights { order: 2; }
+  & .window:not([data-section]) .lights :is(.min, .zoom) { display: none; }
+  & .window:not([data-section]) .lights .close {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: none; box-shadow: none;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  & .window:not([data-section]) .lights .close:hover { background: color-mix(in srgb, var(--after) 14%, transparent); color: var(--after); }
+  & .window:not([data-section]) .lights svg { width: 18px; height: 18px; opacity: 1; }
+  & .window.term:not([data-section]) .titlebar { background: #1a2335; }
+
+  /* CV and terminal: centred over a dimmed page; click outside or press Escape to close */
+  & .window:not([data-section], #chat) {
+    left: 50% !important; top: 50% !important;
+    width: min(920px, calc(100vw - 48px)) !important;
+    height: min(900px, calc(100dvh - 48px)) !important;
+    max-width: none; max-height: none;
+    translate: -50% -50%;
+    box-shadow: 0 0 0 100vmax rgba(2, 12, 27, .62), 0 30px 80px -20px rgba(2, 12, 27, .7);
+    z-index: 9100 !important;   /* above the top bar */
+  }
+  & .window.term:not([data-section]) { width: min(720px, calc(100vw - 48px)) !important; height: min(460px, calc(100dvh - 48px)) !important; }
+  & .viewer .tabs { padding: 12px 20px; background: var(--card); border-color: var(--line); }
 }
 
-/* The hero appears in steps when the page opens */
+/* The hero appears in steps when the page opens (simple.js sets .intro for the first second only,
+   so switching language or layout later does not replay it) */
 @media (prefers-reduced-motion: no-preference) {
-  :root[data-view="simple"] :is(.hello, .about h1, .about .role, .about p, .about .actions, .about img) { animation: arrive .5s ease-out backwards; }
-  :root[data-view="simple"] .about h1 { animation-delay: .08s; }
-  :root[data-view="simple"] .about .role { animation-delay: .16s; }
-  :root[data-view="simple"] :is(.about p, .about img) { animation-delay: .24s; }
-  :root[data-view="simple"] .about .actions { animation-delay: .32s; }
+  :root[data-view="simple"].intro :is(.hello, .about h1, .about .role, .about p, .about .actions, .about img) { animation: arrive .5s ease-out backwards; }
+  :root[data-view="simple"].intro .about h1 { animation-delay: .08s; }
+  :root[data-view="simple"].intro .about .role { animation-delay: .16s; }
+  :root[data-view="simple"].intro :is(.about p, .about img) { animation-delay: .24s; }
+  :root[data-view="simple"].intro .about .actions { animation-delay: .32s; }
 }
 
 /* Narrower screens: no edge links; projects stack */
@@ -350,11 +386,15 @@
     & .case.more { padding: 22px 20px 18px; }
     & .group div { grid-template-columns: 1fr; gap: 2px; }
     & .window:not([data-section]),
-    & .window.max:not([data-section]) {
+    & .window.max:not([data-section]),
+    & .window:not([data-section], #chat),
+    & .window.term:not([data-section]) {
       left: 0 !important; top: 0 !important;
       width: 100vw !important; height: 100dvh !important;
       min-width: 0; max-width: none; max-height: none;
+      translate: none;
       border-radius: 0;
+      box-shadow: none;
       z-index: 9100 !important;
     }
   }
