@@ -1,4 +1,4 @@
-# nmquan2504.github.io
+# nmquandev.github.io
 
 Portfolio of Quan Minh Nguyen, in English and Vietnamese, served by GitHub Pages from the repo root.
 It has two layouts built from the same HTML:
